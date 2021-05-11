@@ -58,8 +58,22 @@
             <version>1.9.1</version>
         </dependency>
         <!--生成swagger接口文档E-->
-
-
+        <!--undertow 替换 tomcat S-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+        <!--undertow 替换 tomcat E-->
 
     </dependencies>
 
