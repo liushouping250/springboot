@@ -1,12 +1,13 @@
 package com.example.demo.modules.test.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.modules.test.dto.request.TestRequestDTO;
+import com.example.demo.modules.test.dto.response.TestResponseDTO;
+import com.example.demo.utils.ResultUtil;
+import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author mr.monster
@@ -17,12 +18,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/test")
 @Api(tags = "测试")
+@Slf4j
 public class Index {
 
-    @GetMapping("/getAllCityCode")
-    @ApiOperation("获取所有的站点城市")
-    public  void  index(@ApiParam(name = "test",value = "测试",required = true) String Test){
+    @GetMapping("/index")
+    @ApiOperation("测试接口1")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "test", value = "关键字", required = true, paramType = "query", dataType = "String"),
+    })
+    public ResultUtil<Object> index(@Valid @RequestParam(required = true) String test){
+        log.info(test);
+        return ResultUtil.success(test);
+    }
 
+
+    @PostMapping("/test")
+    @ApiOperation(value = "测试接口2",response = TestRequestDTO.class)
+    public ResultUtil<Object> test(@RequestBody TestRequestDTO testRequestDTO){
+        log.info(testRequestDTO.toString());
+        TestResponseDTO testResponseDTO = new TestResponseDTO();
+        testResponseDTO.setResult(testRequestDTO);
+        return ResultUtil.success(testResponseDTO);
     }
 
 }
