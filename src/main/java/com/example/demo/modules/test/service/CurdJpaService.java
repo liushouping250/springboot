@@ -19,9 +19,9 @@ public class CurdJpaService {
     private TeUsersRepository teUsersRepository;
 
 
-    public void  index(){
+    public  Users  index(){
         Users info = teUsersRepository.findById((long) 1).orElseThrow(() -> new RuntimeException("my"));
-        log.info(info.toString());
+        return  info;
     }
 
 }

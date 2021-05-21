@@ -1,14 +1,17 @@
 package com.example.demo.modules.test.controller;
 
-import com.example.demo.domain.Users;
+
 import com.example.demo.modules.test.service.CurdJpaService;
-import com.example.demo.repository.TeUsersRepository;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import com.example.demo.modules.test.dto.request.TestRequestDTO;
+import com.example.demo.config.global_exception.ResultUtil;
+
+import javax.validation.Valid;
+
 
 /**
  * @author mr.monster
@@ -26,11 +29,23 @@ public class Index {
     private CurdJpaService curdJpaService;
 
 
-    @GetMapping("/getAllCityCode")
-    @ApiOperation("获取所有的站点城市")
-    public  void  index(@ApiParam(name = "test",value = "测试",required = true) String Test){
-        curdJpaService.index();
-        return  ;
+    @GetMapping("/index")
+    @ApiOperation("测试接口1")
+    public ResultUtil index(@ApiParam(name = "test", value = "订单id", required = true) @RequestParam("test") String test){
+        return ResultUtil.success(curdJpaService.index());
+    }
+
+
+    @PostMapping("/test")
+    @ApiOperation(value = "测试接口2",response = TestRequestDTO.class)
+    public ResultUtil test(@RequestBody @Valid TestRequestDTO testRequestDTO){
+        log.info(testRequestDTO.toString());
+         Integer num = testRequestDTO.getNum();
+         Integer i = 2;
+         if( i > num){
+             testRequestDTO.setNum(12);
+         }
+        return ResultUtil.success(testRequestDTO);
     }
 
 }
