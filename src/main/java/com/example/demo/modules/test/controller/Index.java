@@ -31,7 +31,7 @@ public class Index {
 
     @GetMapping("/index")
     @ApiOperation("测试接口1")
-    public ResultUtil index(@ApiParam(name = "test", value = "订单id", required = true) @RequestParam("test") String test){
+    public ResultUtil index(@Valid @ApiParam(name = "test", value = "订单id", required = true) @RequestParam("test") String test){
         return ResultUtil.success(curdJpaService.index());
     }
 
@@ -40,11 +40,6 @@ public class Index {
     @ApiOperation(value = "测试接口2",response = TestRequestDTO.class)
     public ResultUtil test(@RequestBody @Valid TestRequestDTO testRequestDTO){
         log.info(testRequestDTO.toString());
-         Integer num = testRequestDTO.getNum();
-         Integer i = 2;
-         if( i > num){
-             testRequestDTO.setNum(12);
-         }
         return ResultUtil.success(testRequestDTO);
     }
 
