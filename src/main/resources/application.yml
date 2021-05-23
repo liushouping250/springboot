@@ -34,11 +34,13 @@ spring:
         username: admin
         password: admin
         virtual-host: /
+        publisher-confirms: true
+        publisher-returns: true
         listener:
             simple:
                 concurrency: 1 #最小消费者
                 max-concurrency: 1 #最大消费者
-                acknowledge-mode: auto
+                acknowledge-mode: manual
 
 
 
