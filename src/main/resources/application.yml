@@ -28,4 +28,17 @@ spring:
         useGlobalDataSourceStat: true
         connectionProperties: druid.stat.mergeSql=true,druid.stat.slowSqlMills=500
 
+    rabbitmq:
+        host: 8.136.117.38
+        port: 5672
+        username: admin
+        password: admin
+        virtual-host: /
+        listener:
+            simple:
+                concurrency: 1 #最小消费者
+                max-concurrency: 1 #最大消费者
+                acknowledge-mode: auto
+
+
 
