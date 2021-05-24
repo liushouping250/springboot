@@ -17,12 +17,27 @@ public class SendRabbitMsgService {
     private DirectExchangeService directExchangeService;
 
     /**
-     *  发送消息
+     *  发送消息到直连机
      *
      * */
     public void  TestSendDirectExchangeMsg(String msg){
         directExchangeService.sendRabbitDirectMsg(msg);
     }
 
+    /**
+     *  发送消息到交换机上
+     *
+     * */
+    public void  TestSendExchangeMsg(String msg){
+        directExchangeService.sendRabbitExchangeMsg(msg);
+    }
+
+    /**
+     *  发送消息到交换机上
+     *
+     * */
+    public void  TestSendExchangeMsg1(String msg){
+        directExchangeService.sendRabbitExchangeMsg1(msg);
+    }
 
 }
