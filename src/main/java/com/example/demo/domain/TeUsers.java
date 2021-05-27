@@ -12,6 +12,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * <p>
  * 
@@ -29,7 +33,8 @@ public class TeUsers implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "user_id", type = IdType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
     @ApiModelProperty(value = "用户名称")

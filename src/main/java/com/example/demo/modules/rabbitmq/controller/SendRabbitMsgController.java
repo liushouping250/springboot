@@ -28,14 +28,14 @@ public class SendRabbitMsgController {
 
     @GetMapping("/test")
     @ApiOperation(value = "测试直连机发送消息")
-    public ResultUtil test(@Valid @ApiParam(name = "msg", value = "发送消息", required = true) @RequestParam("msg") String msg){
+    public ResultUtil<Object> test(@Valid @ApiParam(name = "msg", value = "发送消息", required = true) @RequestParam("msg") String msg){
         sendRabbitMsgService.TestSendDirectExchangeMsg(msg);
         return ResultUtil.success();
     }
 
     @GetMapping("/exchange")
     @ApiOperation(value = "测试交换机发送消息")
-    public ResultUtil exchange(@Valid @ApiParam(name = "msg", value = "发送消息", required = true) @RequestParam("msg") String msg){
+    public ResultUtil<Object> exchange(@Valid @ApiParam(name = "msg", value = "发送消息", required = true) @RequestParam("msg") String msg){
         sendRabbitMsgService.TestSendExchangeMsg(msg);
         //sendRabbitMsgService.TestSendExchangeMsg1(msg);
         return ResultUtil.success();

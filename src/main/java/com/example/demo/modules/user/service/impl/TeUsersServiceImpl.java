@@ -21,9 +21,14 @@ public class TeUsersServiceImpl{
     @Resource
     private TeUsersMapper teUsersMapper;
 
-    public List<Users> queryUserList(){
+    public Object queryUserList(){
         List<Users> users = teUsersMapper.queryList();
         return users;
+    }
+
+    public Users queryUserInfo(Integer userId){
+        Users userByUserId = teUsersMapper.findUserByUserId(userId);
+        return  userByUserId;
     }
 
 
