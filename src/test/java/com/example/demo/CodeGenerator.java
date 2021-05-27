@@ -61,7 +61,7 @@ public class CodeGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);//underline_to_camel数据库表映射到实体的命名策略
         strategy.setInclude("te_users");//生成指定的表，不设置则生成数据库所有表
-        strategy.setTablePrefix(moduleName + "_");//设置表前缀不生成
+        //strategy.setTablePrefix(moduleName + "_");//设置表前缀不生成
         strategy.setColumnNaming(NamingStrategy.no_change);//no_change不改变数据库命名
         strategy.setEntityLombokModel(true); // lombok 模型 @Accessors(chain = true) setter链式操作
 
