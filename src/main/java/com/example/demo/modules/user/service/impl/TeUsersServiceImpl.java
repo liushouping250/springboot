@@ -1,11 +1,11 @@
 package com.example.demo.modules.user.service.impl;
 
-import com.example.demo.domain.Users;
+import com.example.demo.domain.TeUsers;
 import com.example.demo.mapper.TeUsersMapper;
+import com.example.demo.modules.user.pojo.request.UserRequestDTO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * <p>
@@ -22,13 +22,24 @@ public class TeUsersServiceImpl{
     private TeUsersMapper teUsersMapper;
 
     public Object queryUserList(){
-        List<Users> users = teUsersMapper.queryList();
-        return users;
+        return teUsersMapper.queryList();
     }
 
-    public Users queryUserInfo(Integer userId){
-        Users userByUserId = teUsersMapper.findUserByUserId(userId);
-        return  userByUserId;
+    public TeUsers queryUserInfo(Integer userId){
+        return  teUsersMapper.findUserByUserId(userId);
+    }
+
+    public Object insertUser(UserRequestDTO userRequestDTO){
+        TeUsers user = new TeUsers();
+        user.setMobile(userRequestDTO.getMobile());
+        user.setName(userRequestDTO.getName());
+        user.setNickname(userRequestDTO.getNickname());
+        user.setPassword(userRequestDTO.getPassword());
+        if(userRequestDTO.getUserId() != null){
+            return teUsersMapper.updateUser(user);
+        }else {
+            return teUsersMapper.insertUser(user);
+        }
     }
 
 

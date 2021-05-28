@@ -1,7 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.domain.Users;
-import com.example.demo.modules.test.controller.Index;
+import com.example.demo.domain.TeUsers;
 import com.example.demo.modules.test.service.CurdJpaService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,7 @@ class DemoApplicationTests {
 
     @Test
     void contextLoads() {
-        Users index = curdJpaService.index();
+        TeUsers index = curdJpaService.index();
         log.info(index.toString());
     }
 

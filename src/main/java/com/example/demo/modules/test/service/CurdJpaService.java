@@ -1,6 +1,6 @@
 package com.example.demo.modules.test.service;
 
-import com.example.demo.domain.Users;
+import com.example.demo.domain.TeUsers;
 import com.example.demo.repository.TeUsersRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,8 @@ public class CurdJpaService {
     private TeUsersRepository teUsersRepository;
 
 
-    public  Users  index(){
-        Users info = teUsersRepository.findById((long) 1).orElseThrow(() -> new RuntimeException("my"));
+    public TeUsers index(){
+        TeUsers info = teUsersRepository.findById((long) 1).orElseThrow(() -> new RuntimeException("my"));
         return  info;
     }
 

@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,11 +30,13 @@ import javax.persistence.Id;
 @Accessors(chain = true)
 @TableName("te_users")
 @ApiModel(value="TeUsers对象", description="")
+@Entity
 public class TeUsers implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     @Id
+    @TableId
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
@@ -44,6 +47,9 @@ public class TeUsers implements Serializable {
     private String nickname;
 
     private String mobile;
+
+    @TableField("head_portrait")
+    private String headPortrait;
 
     @ApiModelProperty(value = "密码")
     private String password;

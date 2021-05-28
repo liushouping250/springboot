@@ -2,15 +2,14 @@ package com.example.demo.modules.user.controller;
 
 
 import com.example.demo.config.global_exception.ResultUtil;
+import com.example.demo.modules.user.pojo.request.UserRequestDTO;
+import com.example.demo.modules.user.pojo.response.UserResponseVO;
 import com.example.demo.modules.user.service.impl.TeUsersServiceImpl;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -24,21 +23,28 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/api/user")
+@Api(tags = "用户相关")
 public class TeUsersController {
 
     @Autowired
     private TeUsersServiceImpl teUsersService;
 
     @GetMapping("/list")
-    @ApiOperation(value = "测试接口2")
+    @ApiOperation(value = "用户列表")
     public ResultUtil<Object> queryUsersList(){
       return   ResultUtil.success(teUsersService.queryUserList());
     }
 
     @GetMapping("/info")
-    @ApiOperation(value = "测试接口2")
-    public ResultUtil<Object> queryUsersInfo(@Valid @ApiParam("userId") Integer userId){
+    @ApiOperation(value = "用户信息")
+    public ResultUtil<Object> queryUsersInfo(@Valid @ApiParam(name = "userId", value = "用户id", required = true) Integer userId){
         return   ResultUtil.success(teUsersService.queryUserInfo(userId));
+    }
+
+    @PostMapping("/insert")
+    @ApiOperation(value = "用户注册",response = UserResponseVO.class)
+    public  ResultUtil<Object> insertUser( @Valid @RequestBody UserRequestDTO userRequestDTO){
+        return  ResultUtil.success(teUsersService.insertUser(userRequestDTO));
     }
 
 
