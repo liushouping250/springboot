@@ -2,6 +2,7 @@ package com.example.demo.modules.user.controller;
 
 
 import com.example.demo.config.global_exception.ResultUtil;
+import com.example.demo.modules.user.pojo.request.DeleteUserDTO;
 import com.example.demo.modules.user.pojo.request.UserRequestDTO;
 import com.example.demo.modules.user.pojo.response.UserResponseVO;
 import com.example.demo.modules.user.service.impl.TeUsersServiceImpl;
@@ -46,6 +47,13 @@ public class TeUsersController {
     public  ResultUtil<Object> insertUser( @Valid @RequestBody UserRequestDTO userRequestDTO){
         return  ResultUtil.success(teUsersService.insertUser(userRequestDTO));
     }
+
+    @DeleteMapping("/delete")
+    @ApiOperation(value = "用户注销")
+    public  ResultUtil<Object> deleteUser(@Valid @RequestBody DeleteUserDTO deleteUserDTO){
+        return  ResultUtil.success(teUsersService.deleteUser(deleteUserDTO));
+    }
+
 
 
 }

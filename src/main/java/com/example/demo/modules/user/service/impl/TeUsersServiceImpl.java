@@ -2,6 +2,7 @@ package com.example.demo.modules.user.service.impl;
 
 import com.example.demo.domain.TeUsers;
 import com.example.demo.mapper.TeUsersMapper;
+import com.example.demo.modules.user.pojo.request.DeleteUserDTO;
 import com.example.demo.modules.user.pojo.request.UserRequestDTO;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,11 @@ public class TeUsersServiceImpl{
             return teUsersMapper.insertUser(user);
         }
     }
+
+    public int deleteUser(DeleteUserDTO deleteUserDTO){
+        return  teUsersMapper.deleteUser(deleteUserDTO.getUserId());
+    }
+
 
 
 }
