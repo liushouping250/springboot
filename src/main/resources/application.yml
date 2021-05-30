@@ -57,6 +57,13 @@ mybatis-plus:
             select-strategy: NOT_NULL
             # 默认数据库表下划线命名
             table-underline: true
+# JWT
+jwt:
+    header: Authorization
+    secret: mySecret
+    #token有效期一天
+    expiration: 86400
+    tokenHead: "Bearer "
 
 
 
