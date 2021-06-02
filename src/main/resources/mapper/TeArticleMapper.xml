@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.TeArticleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.domain.TeArticle">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="category_id" property="categoryId" />
+        <result column="title" property="title" />
+        <result column="small_title" property="smallTitle" />
+        <result column="content" property="content" />
+        <result column="click_num" property="clickNum" />
+        <result column="likes_num" property="likesNum" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, category_id, title, small_title, content, click_num, likes_num, update_time, create_time
+    </sql>
+
+    <insert id="insetBatch" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        insert into te_article (
+            user_id, category_id, title, small_title, content, update_time, create_time
+        ) values
+        <foreach collection="list" item="item" index="i" separator=",">
+            (#{item.userId},
+             #{item.categoryId},
+             #{item.title},
+             #{item.smallTitle},
+             #{item.content},
+            #{item.updateTime},
+            #{item.createTime})
+        </foreach>
+    </insert>
+
+    <select id="queryArticleList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"> </include> from te_article
+    </select>
+
+</mapper>

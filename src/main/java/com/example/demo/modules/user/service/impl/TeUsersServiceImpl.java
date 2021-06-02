@@ -30,17 +30,18 @@ public class TeUsersServiceImpl{
         return  teUsersMapper.findUserByUserId(userId);
     }
 
-    public Object insertUser(UserRequestDTO userRequestDTO){
+    public TeUsers insertUser(UserRequestDTO userRequestDTO){
         TeUsers user = new TeUsers();
         user.setMobile(userRequestDTO.getMobile());
         user.setName(userRequestDTO.getName());
         user.setNickname(userRequestDTO.getNickname());
         user.setPassword(userRequestDTO.getPassword());
         if(userRequestDTO.getUserId() != null){
-            return teUsersMapper.updateUser(user);
+             teUsersMapper.updateUser(user);
         }else {
-            return teUsersMapper.insertUser(user);
+             teUsersMapper.insertUser(user);
         }
+        return  user;
     }
 
     public int deleteUser(DeleteUserDTO deleteUserDTO){

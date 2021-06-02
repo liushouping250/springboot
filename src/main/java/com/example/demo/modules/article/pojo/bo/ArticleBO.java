@@ -1,0 +1,1 @@
+package com.example.demo.modules.article.pojo.bo;import com.example.demo.domain.TeArticle;import lombok.Data;import java.util.List;/** * @description: 文章业务（BO）类 * @author: Mr.monster.liu * @create: 2021-05-31 13:45 **/@Datapublic class ArticleBO {    private List<TeArticle> articleList;}
