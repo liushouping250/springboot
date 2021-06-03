@@ -31,4 +31,7 @@ public interface TeUsersMapper extends BaseMapper<TeUsers> {
     @Delete(" delete from te_users where user_id = #{userId} ")
     int deleteUser(@Param("userId")Integer userId);
 
+    @Select(" select * from te_users where name = #{username} and password = #{password} ")
+    TeUsers findUserByUserAndPassword(@Param("username")String userName,@Param("password")String password);
+
 }
