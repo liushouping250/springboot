@@ -17,8 +17,10 @@ public class ApplicationProperties {
 
     private JWT jwt;
 
+    private RABBIT rabbit;
+
     @Data
-    public class JWT{
+    public static class JWT{
         /** Request Headers ： Authorization */
         private String header;
 
@@ -35,10 +37,21 @@ public class ApplicationProperties {
     }
 
     @Data
-    public class OSS{
+    public static class OSS{
 
         private  String name;
 
+
+    }
+
+    @Data
+    public static   class RABBIT{
+
+        private String host;
+        private Integer port;
+        private String username;
+        private String password;
+        private String virtualHost;
 
     }
 

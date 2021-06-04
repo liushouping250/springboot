@@ -24,20 +24,17 @@ public class DirectExchangeService {
         //将消息携带绑定键值：TestDirectRouting 发送到交换机TestDirectExchange
         log.info("发送rabbit消息===="+msg);
         rabbitTemplate.convertAndSend("TestDirectExchange","TestDirectRouting",msg);
-
     }
 
     //推送消息到交换机上
     public void sendRabbitExchangeMsg(String msg){
         log.info("发送rabbit消息到交换机===="+msg);
         rabbitTemplate.convertAndSend(RabbitMqEnum.TopicExchange.getName(),RabbitMqEnum.TopicTest1.getName(),msg);
-
     }
 
     public void sendRabbitExchangeMsg1(String msg){
         log.info("发送rabbit消息到交换机通配符===="+msg);
         rabbitTemplate.convertAndSend(RabbitMqEnum.TopicExchange.getName(),RabbitMqEnum.TopicTest2.getName(),msg);
-
     }
 
 
