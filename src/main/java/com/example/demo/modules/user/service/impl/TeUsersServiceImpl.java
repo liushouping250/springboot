@@ -76,7 +76,7 @@ public class TeUsersServiceImpl{
         Optional.ofNullable(userByUserAndPassword).orElseThrow(()->new RuntimeException("登录失败"));
 
         String token = tokenProvider.createToken(userByUserAndPassword.getToken(), true);
-        response.setHeader(JWTConfigurer.AUTHORIZATION_HEADER,"Bearer " + token + "@" + null + "@" + userByUserAndPassword.getToken());
+        response.setHeader(JWTConfigurer.AUTHORIZATION_HEADER,"Bearer " + token);
         return userByUserAndPassword;
 
     }

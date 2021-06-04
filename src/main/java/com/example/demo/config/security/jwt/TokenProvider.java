@@ -83,7 +83,6 @@ public class TokenProvider {
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
-        User principal = new User(claims.getSubject(), "", authorities);
         TeUsers userByToken = teUsersMapper.findUserByToken(claims.getSubject());
         return new UsernamePasswordAuthenticationToken(userByToken, token, authorities);
     }
