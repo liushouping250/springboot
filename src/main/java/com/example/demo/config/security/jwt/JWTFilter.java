@@ -38,13 +38,9 @@ public class JWTFilter extends GenericFilterBean {
         log.info("url:"+re.getRequestURI());
         log.info(jwt);
         if (StringUtils.hasText(jwt) && this.tokenProvider.validateToken(jwt)) {
-            log.info("1111");
             Authentication authentication = this.tokenProvider.getAuthentication(jwt);
-            log.info("2222");
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            log.info("33333");
         }
-        log.info("444");
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

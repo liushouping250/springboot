@@ -10,6 +10,7 @@ import com.example.demo.modules.user.pojo.request.UserRequestDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -42,6 +43,8 @@ public class TeUsersServiceImpl{
     }
 
     public TeUsers queryUserInfo(Integer userId){
+        //获取登录授权的用户信息
+        //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return  teUsersMapper.findUserByUserId(userId);
     }
 

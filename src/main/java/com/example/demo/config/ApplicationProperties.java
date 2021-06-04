@@ -31,10 +31,7 @@ public class ApplicationProperties {
         /** 令牌过期时间 此处单位/毫秒 */
         private Long tokenValidityInSeconds;
 
-        /**返回令牌前缀 */
-        public String getTokenStartWith() {
-            return tokenStartWith + " ";
-        }
+
     }
 
     @Data

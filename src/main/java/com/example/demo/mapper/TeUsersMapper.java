@@ -34,4 +34,7 @@ public interface TeUsersMapper extends BaseMapper<TeUsers> {
     @Select(" select * from te_users where name = #{username} and password = #{password} ")
     TeUsers findUserByUserAndPassword(@Param("username")String userName,@Param("password")String password);
 
+    @Select(" select * from te_users where token = #{token} ")
+    TeUsers findUserByToken(@Param("token")String token);
+
 }

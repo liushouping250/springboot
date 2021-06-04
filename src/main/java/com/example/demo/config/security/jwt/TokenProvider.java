@@ -1,12 +1,15 @@
 package com.example.demo.config.security.jwt;
 
 
+import com.example.demo.domain.TeUsers;
+import com.example.demo.mapper.TeUsersMapper;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.lang.UnknownClassException;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,6 +40,10 @@ public class TokenProvider {
 
     private long tokenValidityInMillisecondsForRememberMe;
 
+    @Autowired
+    private TeUsersMapper teUsersMapper;
+
+
 
     @PostConstruct
     public void init() {
@@ -51,9 +58,6 @@ public class TokenProvider {
                 60 * 365 * 24 * 3600 * 1000L ;
     }
 
-
-
-
     public String createToken(String username, boolean rememberMe) {
         long now = (new Date()).getTime();
         Date validity;
@@ -62,7 +66,6 @@ public class TokenProvider {
         } else {
             validity = new Date(now + this.tokenValidityInMilliseconds);
         }
-        log.info("username==="+username);
         return Jwts.builder()
                 .setSubject(username)
                 .claim(AUTHORITIES_KEY, "ROLE_ADMIN")
@@ -72,21 +75,17 @@ public class TokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        log.info("secretKey========="+secretKey.toString());
-        log.info("token========="+token);
         Claims claims = Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .getBody();
-        log.info("AUTHORITIES_KEY========="+claims.toString());
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
-        log.info("claims========="+claims.getSubject());
         User principal = new User(claims.getSubject(), "", authorities);
-
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        TeUsers userByToken = teUsersMapper.findUserByToken(claims.getSubject());
+        return new UsernamePasswordAuthenticationToken(userByToken, token, authorities);
     }
 
     public boolean validateToken(String authToken) {
