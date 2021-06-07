@@ -14,8 +14,6 @@ import org.springframework.context.annotation.Configuration;
 public class DirectRabbitConfig {
 
 
-
-
     //队列 起名：TestDirectQueue
     @Bean
     public Queue TestDirectQueue(){
@@ -37,40 +35,7 @@ public class DirectRabbitConfig {
         return BindingBuilder.bind(TestDirectQueue()).to(TestDirectExchange()).with(RabbitMqEnum.TestDirectRouting.getName());
     }
 
-    @Bean
-    public Queue firstQueue() {
-        return new Queue(RabbitMqEnum.TopicTest1.getName());
-    }
 
-    @Bean
-    public Queue secondQueue() {
-        return new Queue(RabbitMqEnum.TopicTest2.getName());
-    }
-
-    @Bean
-    TopicExchange exchange() {
-        return new TopicExchange(RabbitMqEnum.TopicExchange.getName());
-    }
-
-
-    //将firstQueue和topicExchange绑定,而且绑定的键值为topic.man
-    //这样只要是消息携带的路由键是topic.man,才会分发到该队列
-    @Bean
-    Binding bindingExchangeMessage() {
-        return BindingBuilder.bind(firstQueue()).to(exchange()).with(RabbitMqEnum.TopicTest1.getName());
-    }
-
-    @Bean
-    Binding bindingExchangeMessage1() {
-        return BindingBuilder.bind(secondQueue()).to(exchange()).with(RabbitMqEnum.TopicTest2.getName());
-    }
-
-    //将secondQueue和topicExchange绑定,而且绑定的键值为用上通配路由键规则topic.#
-    // 这样只要是消息携带的路由键是以topic.开头,都会分发到该队列
-    @Bean
-    Binding bindingExchangeMessage2() {
-        return BindingBuilder.bind(secondQueue()).to(exchange()).with(RabbitMqEnum.TopicAllExchange.getName() );
-    }
 
 
 }

@@ -16,7 +16,11 @@ public enum RabbitMqEnum {
     TopicTest2("topic.test2","测试直连机消息队列名称"),
     TopicExchange("topicExchange","交换机交换机名称"),
     //定的键值为用上通配路由键规则topic.#
-    TopicAllExchange("topic.#","交换机交换机名称");
+    TopicAllExchange("topic.#","交换机交换机名称"),
+    FanoutExchange("fanoutExchange","扇形交换机交换机名称"),
+    FanoutQueueA("fanout.queue.a","扇形交换机队列名称"),
+    FanoutQueueB("fanout.queue.b","扇形交换机队列名称"),
+    FanoutQueueC("fanout.queue.c","扇形交换机队列名称");
 
 
     private  String name;

@@ -1,6 +1,8 @@
 package com.example.demo.modules.rabbitmq.service;
 
 import com.example.demo.rabbitmq.service.DirectExchangeService;
+import com.example.demo.rabbitmq.service.FanoutExchangeService;
+import com.example.demo.rabbitmq.service.TopicExchangeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,12 @@ public class SendRabbitMsgService {
     @Autowired
     private DirectExchangeService directExchangeService;
 
+    @Autowired
+    private TopicExchangeService topicExchangeService;
+
+    @Autowired
+    private FanoutExchangeService fanoutExchangeService;
+
     /**
      *  发送消息到直连机
      *
@@ -29,7 +37,7 @@ public class SendRabbitMsgService {
      *
      * */
     public void  TestSendExchangeMsg(String msg){
-        directExchangeService.sendRabbitExchangeMsg(msg);
+        topicExchangeService.sendRabbitExchangeMsg(msg);
     }
 
     /**
@@ -37,7 +45,16 @@ public class SendRabbitMsgService {
      *
      * */
     public void  TestSendExchangeMsg1(String msg){
-        directExchangeService.sendRabbitExchangeMsg1(msg);
+        topicExchangeService.sendRabbitExchangeMsg1(msg);
+    }
+
+
+    /**
+     *  发送消息到扇形交换机上
+     *
+     * */
+    public void   SendFanoutExchangeMsg(String msg){
+        fanoutExchangeService.sendRabbitExchangeMsgA(msg);
     }
 
 }

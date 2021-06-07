@@ -35,9 +35,16 @@ public class SendRabbitMsgController {
 
     @GetMapping("/exchange")
     @ApiOperation(value = "测试交换机发送消息")
-    public ResultUtil<Object> exchange(@Valid @ApiParam(name = "msg", value = "发送消息", required = true) @RequestParam("msg") String msg){
+    public ResultUtil<Object> topicExchange(@Valid @ApiParam(name = "msg", value = "发送消息", required = true) @RequestParam("msg") String msg){
         sendRabbitMsgService.TestSendExchangeMsg(msg);
         //sendRabbitMsgService.TestSendExchangeMsg1(msg);
+        return ResultUtil.success();
+    }
+
+    @GetMapping("/fanout")
+    @ApiOperation(value = "测试扇形交换机发送消息")
+    public ResultUtil<Object> fanoutExchange(@Valid @ApiParam(name = "msg", value = "发送消息", required = true) @RequestParam("msg") String msg){
+        sendRabbitMsgService.SendFanoutExchangeMsg(msg);
         return ResultUtil.success();
     }
 

@@ -18,22 +18,7 @@ public class DomainUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String username) {
-//        log.info(username+"@@@@@@@@@");
-//        if (username!=null && !"".equals(username)) {
-//            log.info("sdadadssa");
-//            Optional<Store> oneByPhoneNumber = storeRepository.findByUsername(username);
-//            log.info(oneByPhoneNumber.toString());
-//            return oneByPhoneNumber.map(store -> createSpringSecurityUser(username, store))
-//                    .orElseThrow(() -> new UsernameNotFoundException("User with phoneNumber " + username + " was not found in the database"));
-//        }
-//        log.info("进入此方法");
+
         throw new RuntimeException("User with userName " + username + " was not found in the database");
     }
-
-//    private org.springframework.security.core.userdetails.User createSpringSecurityUser(String lowercaseLogin, Store store) {
-//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-//        return new org.springframework.security.core.userdetails.User(store.getUsername(),
-//                store.getPassword(),
-//                grantedAuthorities);
-//    }
 }

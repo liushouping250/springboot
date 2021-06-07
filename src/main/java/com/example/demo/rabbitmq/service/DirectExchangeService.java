@@ -26,17 +26,4 @@ public class DirectExchangeService {
         rabbitTemplate.convertAndSend("TestDirectExchange","TestDirectRouting",msg);
     }
 
-    //推送消息到交换机上
-    public void sendRabbitExchangeMsg(String msg){
-        log.info("发送rabbit消息到交换机===="+msg);
-        rabbitTemplate.convertAndSend(RabbitMqEnum.TopicExchange.getName(),RabbitMqEnum.TopicTest1.getName(),msg);
-    }
-
-    public void sendRabbitExchangeMsg1(String msg){
-        log.info("发送rabbit消息到交换机通配符===="+msg);
-        rabbitTemplate.convertAndSend(RabbitMqEnum.TopicExchange.getName(),RabbitMqEnum.TopicTest2.getName(),msg);
-    }
-
-
-
 }
