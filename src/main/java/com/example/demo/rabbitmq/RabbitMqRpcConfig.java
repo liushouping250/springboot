@@ -1,18 +1,20 @@
 package com.example.demo.rabbitmq;
 
-import com.example.demo.config.ApplicationProperties;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.UUID;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author mr.monster
@@ -20,76 +22,71 @@ import org.springframework.stereotype.Service;
  * @Description
  * @date 2021/5/25 23:03
  */
- @Service
-public class RabbitMqRpcConfig {
+@Service
+@Slf4j
+public class RabbitMqRpcConfig implements AutoCloseable {
 
-    public static final String TOPIC_QUEUE1 = "topic.queue1";
-    public static final String TOPIC_QUEUE2 = "topic.queue2";
-    public static final String TOPIC_EXCHANGE = "topic.exchange";
+    private Connection connection;
 
-
-    @Autowired
-    ConnectionFactory connectionFactory;
-
-    @Autowired
-    private ApplicationProperties applicationProperties;
+    private Channel channel;
 
 
-    @Bean(name = "connectionFactory")
-    public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        connectionFactory.setHost(applicationProperties.getRabbit().getHost());
-        connectionFactory.setPort(applicationProperties.getRabbit().getPort());
-        connectionFactory.setUsername(applicationProperties.getRabbit().getUsername());
-        connectionFactory.setPassword(applicationProperties.getRabbit().getPassword());
-        connectionFactory.setVirtualHost("/");
-        return connectionFactory;
+    /**
+     * rabbitmq的有参构造器
+     * @param rabbitProperties
+     * @throws IOException
+     * @throws TimeoutException
+     */
+    public void RabbitMqRpcConfig(RabbitProperties rabbitProperties) throws IOException, TimeoutException {
+        com.rabbitmq.client.ConnectionFactory connectionFactory = new ConnectionFactory();
+        //设置心跳检测
+        connectionFactory.setRequestedHeartbeat(60);
+        //设置自动恢复
+        connectionFactory.setAutomaticRecoveryEnabled(true);
+        connectionFactory.setHost(rabbitProperties.getHost());
+        connectionFactory.setPort(rabbitProperties.getPort());
+        connectionFactory.setUsername(rabbitProperties.getUsername());
+        connectionFactory.setPassword(rabbitProperties.getPassword());
+        connection = connectionFactory.newConnection();
+        channel = connection.createChannel();
     }
 
-    @Bean
-    public RabbitTemplate rabbitTemplate() {
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        //设置reply_to（返回队列，只能在这设置）
-        rabbitTemplate.setReplyAddress(TOPIC_QUEUE2);
-        rabbitTemplate.setReplyTimeout(60000);
-        return rabbitTemplate;
+    /**
+     * 向队列发消息并取回消息
+     * @param requestQueueName
+     * @param message
+     * @param
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public String call(String requestQueueName, byte[] message,String expirationTime,Integer responseTime) throws IOException, InterruptedException {
+        String replyQueueName = channel.queueDeclare().getQueue();
+        log.info("RPC队列名称===="+replyQueueName);
+        final String corrId = UUID.randomUUID().toString();
+        log.info("RPC uuid="+corrId);
+        AMQP.BasicProperties props = new AMQP.BasicProperties
+                .Builder()
+                .expiration(expirationTime)
+                .correlationId(corrId)
+                .replyTo(replyQueueName)
+                .build();
+        channel.basicPublish("", requestQueueName, props, message);
+        final BlockingQueue<String> response = new ArrayBlockingQueue<String>(1);
+        String ctag = channel.basicConsume(replyQueueName, true, (consumerTag, delivery) -> {
+            if (delivery.getProperties().getCorrelationId().equals(corrId)) {
+                log.info(Arrays.toString(delivery.getBody()));
+                //response.offer(delivery.getBody());
+            }
+        }, consumerTag -> {
+        });
+        String result = response.poll(responseTime, TimeUnit.MILLISECONDS);
+        log.info(requestQueueName+result+"___@@@_______________________________________________");
+        channel.basicCancel(ctag);
+        return result;
     }
-    //返回队列监听器（必须有）
-    @Bean(name="replyMessageListenerContainer")
-    public SimpleMessageListenerContainer createReplyListenerContainer() {
-        SimpleMessageListenerContainer listenerContainer = new SimpleMessageListenerContainer();
-        listenerContainer.setConnectionFactory(connectionFactory);
-        listenerContainer.setQueueNames(TOPIC_QUEUE2);
-        listenerContainer.setMessageListener(rabbitTemplate());
-        return listenerContainer;
-    }
+    @Override
+    public void close() throws Exception {
 
-
-
-    //创建队列
-    @Bean
-    public Queue topicQueue1() {
-        return new Queue(TOPIC_QUEUE1);
     }
-    @Bean
-    public Queue topicQueue2() {
-        return new Queue(TOPIC_QUEUE2);
-    }
-
-    //创建交换机
-    @Bean
-    public TopicExchange topicExchange() {
-        return new TopicExchange(TOPIC_EXCHANGE);
-    }
-
-    //交换机与队列进行绑定
-    @Bean
-    public Binding topicBinding1() {
-        return BindingBuilder.bind(topicQueue1()).to(topicExchange()).with(TOPIC_QUEUE1);
-    }
-    @Bean
-    public Binding topicBinding2() {
-        return BindingBuilder.bind(topicQueue2()).to(topicExchange()).with(TOPIC_QUEUE2);
-    }
-
 }
