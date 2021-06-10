@@ -48,6 +48,23 @@ spring:
                 concurrency: 1 #最小消费者
                 max-concurrency: 1 #最大消费者
                 acknowledge-mode: manual
+    redis:
+        host: 8.136.117.38
+        port: 6379
+        connect-timeout: 1000
+        # 连接池配置
+        lettuce:
+            shutdown-timeout: 2000
+            pool:
+                max-active: 200 # 连接池最大连接数（使用负值表示没有限制）
+                max-wait: -1    # 连接池最大阻塞等待时间（使用负值表示没有限制）
+                max-idle: 10    # 连接池中的最大空闲连接
+                min-idle: 2     # 连接池中的最小空闲连接
+            # 集群配置
+                #cluster:
+                    #refresh:
+                # dynamic-refresh-sources: false
+        timeout: 2000  # 连接超时时间（毫秒）
 
 mybatis-plus:
     # MyBatis Mapper所对应的XML文件位置

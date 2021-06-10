@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.domain.TeUsers;
+import com.example.demo.modules.redis.service.RedisBasicService;
 import com.example.demo.modules.test.service.CurdJpaService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,9 @@ class DemoApplicationTests {
 
     @Autowired
     private CurdJpaService curdJpaService;
+
+    @Autowired
+    private RedisBasicService redisBasicService;
 
     @Test
     void contextLoads() {
@@ -44,6 +48,11 @@ class DemoApplicationTests {
         stream4.limit(10).forEach(x -> System.out.println(x));
 
 
+    }
+
+    @Test
+    void  testRedis(){
+        redisBasicService.RedisSet();
     }
 
 }
