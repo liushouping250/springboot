@@ -20,8 +20,7 @@ public class CurdJpaService {
 
 
     public TeUsers index(){
-        TeUsers info = teUsersRepository.findById((long) 1).orElseThrow(() -> new RuntimeException("my"));
-        return  info;
+        return teUsersRepository.findById(1).orElseThrow(() -> new RuntimeException("my"));
     }
 
 }

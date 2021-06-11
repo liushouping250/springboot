@@ -65,6 +65,7 @@ spring:
                     #refresh:
                 # dynamic-refresh-sources: false
         timeout: 2000  # 连接超时时间（毫秒）
+        password: lsp@123456
 
 mybatis-plus:
     # MyBatis Mapper所对应的XML文件位置

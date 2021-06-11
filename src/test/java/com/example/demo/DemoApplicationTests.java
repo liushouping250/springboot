@@ -50,9 +50,9 @@ class DemoApplicationTests {
 
     }
 
-    @Test
-    void  testRedis(){
-        redisBasicService.RedisSet();
-    }
 
+    @Test
+    void  testRedis() throws InterruptedException {
+        redisBasicService.RedisLock();
+    }
 }

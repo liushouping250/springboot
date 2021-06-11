@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Description
  * @date 2021/5/21 23:42
  */
-public interface TeUsersRepository extends JpaRepository<TeUsers,Long> {
+public interface TeUsersRepository extends JpaRepository<TeUsers,Integer> {
 }
