@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.domain.TeUsers;
+import com.example.demo.modules.rabbitmq.service.SendRabbitRpcMsgService;
 import com.example.demo.modules.redis.service.RedisBasicService;
 import com.example.demo.modules.test.service.CurdJpaService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -21,6 +23,9 @@ class DemoApplicationTests {
 
     @Autowired
     private RedisBasicService redisBasicService;
+
+    @Autowired
+    private SendRabbitRpcMsgService sendRabbitRpcMsgService;
 
     @Test
     void contextLoads() {
@@ -54,5 +59,10 @@ class DemoApplicationTests {
     @Test
     void  testRedis() throws InterruptedException {
         redisBasicService.RedisLock();
+    }
+
+    @Test
+    void  rpc() throws IOException, InterruptedException {
+        sendRabbitRpcMsgService.index();
     }
 }
