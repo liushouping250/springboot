@@ -87,6 +87,12 @@ public class TokenProvider {
         return new UsernamePasswordAuthenticationToken(userByToken, token, authorities);
     }
 
+    public Authentication getNoAuthentication() {
+
+        Collection<? extends GrantedAuthority> authorities = null;
+        return new UsernamePasswordAuthenticationToken(new TeUsers(), "", authorities);
+    }
+
     public boolean validateToken(String authToken) {
         log.info("进入解析方法");
         try {
