@@ -1,0 +1,1 @@
+package com.example.demo.modules.designPattern.sevice.builder;/** * @description: 组装对应的品牌汽车 * @author: Mr.monster.liu * @create: 2021-06-17 11:53 **/public class AutomobileBrandProduce{}

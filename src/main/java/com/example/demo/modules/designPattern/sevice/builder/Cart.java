@@ -1,0 +1,1 @@
+package com.example.demo.modules.designPattern.sevice.builder;import lombok.Data;/** * @description: 汽车类 * @author: Mr.monster.liu * @create: 2021-06-17 11:46 **/@Datapublic class Cart {    //品牌名称    private String automobileBrandName;    //轮胎    private  String  tyre;    //发动机    private  String  engine;    //汽车机身    private  String  fuselage;}
