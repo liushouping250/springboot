@@ -4,22 +4,31 @@ import com.example.demo.domain.TeUsers;
 import com.example.demo.modules.designPattern.sevice.builder.BuilderCart;
 import com.example.demo.modules.designPattern.sevice.builder.Cart;
 import com.example.demo.modules.designPattern.sevice.builder.Manufacturer;
+import com.example.demo.modules.designPattern.sevice.builderT.service.CalculationService;
 import com.example.demo.modules.designPattern.sevice.strategymodel.BraisedCrabs;
 import com.example.demo.modules.designPattern.sevice.strategymodel.CrabCooking;
 import com.example.demo.modules.designPattern.sevice.strategymodel.Kitchen;
 import com.example.demo.modules.designPattern.sevice.strategymodel.SteamedCrabs;
+import com.example.demo.modules.entrust.service.EntrustInterface;
+import com.example.demo.modules.entrust.service.impl.CalculateThePriceService;
+import com.example.demo.modules.entrust.service.impl.IntermediateMemberEntrustServiceImpl;
 import com.example.demo.modules.rabbitmq.service.SendRabbitRpcMsgService;
 import com.example.demo.modules.redis.service.RedisBasicService;
 import com.example.demo.modules.test.service.CurdJpaService;
+import com.google.common.collect.Maps;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
-import java.security.KeyStore;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 @SpringBootTest
@@ -35,6 +44,11 @@ class DemoApplicationTests {
     @Autowired
     private SendRabbitRpcMsgService sendRabbitRpcMsgService;
 
+    @Autowired
+    private CalculateThePriceService calculateThePriceService;
+
+    @Autowired
+    private CalculationService calculationService;
 
 
     @Test
@@ -165,6 +179,88 @@ class DemoApplicationTests {
         System.out.println(builderCart.toString());
     }
 
+    @Test
+    void bigDecimalToInt(){
+        // bin 计算
+        BigDecimal bigDecimal = new BigDecimal("2.5");
+        System.out.println(bigDecimal);
+        BigDecimal bigDecimal1 = new BigDecimal("0.1");
+        BigDecimal res = bigDecimal.multiply(bigDecimal1);
+        System.out.println(res);
+
+
+        // string 转double
+        String  number = "20.0000000";
+        double ratio =  Double.parseDouble(number);
+        System.out.println(ratio);
+
+
+    }
+
+    @Test
+    public void entrustTest(){
+        IntermediateMemberEntrustServiceImpl intermediateMemberEntrustService = new IntermediateMemberEntrustServiceImpl();
+        calculateThePriceService.CalculateThePriceService(intermediateMemberEntrustService);
+        CalculateThePriceService calculateThePriceService = this.calculateThePriceService.calculateThePrice(20.00);
+        log.info(calculateThePriceService.toString());
+
+    }
+
+    @Test
+    public void  test(){
+        Map<String, String> params = Maps.newHashMap();
+        params.put("cust_id", String.valueOf(123456));
+        params.put("apikey", "apikey");
+        params.put("msg_id", String.valueOf(3434355));
+        params.put("order_id", String.valueOf(3434355));
+        params.put("security_code", StringUtils.trimToEmpty(String.valueOf(345454544)));
+        params.put("code", StringUtils.trimToEmpty(String.valueOf(345454544)));
+        params.put("qrCodeUrl", "http://www.zowoyoo.com/.....");
+        params.put("qrType", "0");
+        params.put("printState", "0");
+        params.put("codeUrls", "[{codeUrl:\"\", codeType: 1},{codeUrl:\"\", codeType: 1}]");
+        log.info(params.toString());
+    }
+
+
+    @Test
+    public void arrayTest(){
+        List<Cart> cartList = new ArrayList<>();
+        log.info("数组的初始数量："+cartList.size());
+        for(int i = 0 ;i <=5 ;i++){
+            Cart cart = new Cart();
+            cart.setName("name"+i);
+            cart.setTime(i);
+            cartList.add(cart);
+        }
+        log.info("填充数组的数量："+cartList.size());
+        log.info("获取第一个数据："+cartList.get(0));
+        cartList.remove(0);
+
+        log.info("删除数组的数量："+cartList.size());
+        log.info("获取第一个数据："+cartList.get(0));
+
+    }
+
+
+    @Test
+    public void builderTTest(){
+        calculationService.index();
+    }
+
+
+
+    @Data
+    public static   class Cart{
+
+        //名称
+        private  String name;
+
+        //生产时间
+        private Integer time;
+
+
+    }
 
 
 

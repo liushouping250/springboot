@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.modules.mapper.TeCategoryGoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.domain.TeCategoryGoods">
+        <id column="category_id" property="categoryId" />
+        <result column="category_name" property="categoryName" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+        <result column="sort" property="sort" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        category_id, category_name, status, remark, sort, update_time, create_time
+    </sql>
+
+</mapper>

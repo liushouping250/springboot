@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.modules.mapper.TeGoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.domain.TeGoods">
+        <id column="goods_Id" property="goodsId" />
+        <result column="goods_name" property="goodsName" />
+        <result column="category_id" property="categoryId" />
+        <result column="goods_title" property="goodsTitle" />
+        <result column="price" property="price" />
+        <result column="stock" property="stock" />
+        <result column="real_sales_volume" property="realSalesVolume" />
+        <result column="false_sales_volume" property="falseSalesVolume" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        goods_Id, goods_name, category_id, goods_title, price, stock, real_sales_volume, false_sales_volume, status
+    </sql>
+
+</mapper>
