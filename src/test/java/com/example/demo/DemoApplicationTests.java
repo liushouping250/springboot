@@ -2,14 +2,14 @@ package com.example.demo;
 
 import com.example.demo.domain.TeUsers;
 import com.example.demo.modules.designPattern.sevice.builder.BuilderCart;
-import com.example.demo.modules.designPattern.sevice.builder.Cart;
-import com.example.demo.modules.designPattern.sevice.builder.Manufacturer;
 import com.example.demo.modules.designPattern.sevice.builderT.service.CalculationService;
+import com.example.demo.modules.designPattern.sevice.decorate.ConcreteComponent;
+import com.example.demo.modules.designPattern.sevice.decorate.service.ConcreteDecoratorA;
+import com.example.demo.modules.designPattern.sevice.decorate.service.ConcreteDecoratorB;
 import com.example.demo.modules.designPattern.sevice.strategymodel.BraisedCrabs;
 import com.example.demo.modules.designPattern.sevice.strategymodel.CrabCooking;
 import com.example.demo.modules.designPattern.sevice.strategymodel.Kitchen;
 import com.example.demo.modules.designPattern.sevice.strategymodel.SteamedCrabs;
-import com.example.demo.modules.entrust.service.EntrustInterface;
 import com.example.demo.modules.entrust.service.impl.CalculateThePriceService;
 import com.example.demo.modules.entrust.service.impl.IntermediateMemberEntrustServiceImpl;
 import com.example.demo.modules.rabbitmq.service.SendRabbitRpcMsgService;
@@ -246,6 +246,16 @@ class DemoApplicationTests {
     @Test
     public void builderTTest(){
         calculationService.index();
+    }
+
+    @Test
+    public void testDecorate(){
+        ConcreteComponent concreteComponent = new ConcreteComponent();
+        ConcreteDecoratorA concreteDecoratorA = new ConcreteDecoratorA();
+        ConcreteDecoratorB concreteDecoratorB = new ConcreteDecoratorB();
+        concreteDecoratorA.setComponent(concreteComponent);
+        concreteDecoratorB.setComponent(concreteDecoratorA);
+        concreteDecoratorB.eat();
     }
 
 
