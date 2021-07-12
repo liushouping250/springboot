@@ -59,7 +59,7 @@ public class TeGoods implements Serializable {
     private Integer falseSalesVolume;
 
     @ApiModelProperty(value = "商品状态 0 编辑中  1 发布 2 审核中 3 已审核  4 审核未通过 5 下架")
-    private Boolean status;
+    private Integer status;
 
 
 }

@@ -1,1 +1,0 @@
-package com.example.demo.modules.designPattern.sevice.builder;/** * @description: 汽车品牌 接口类 * @author: Mr.monster.liu * @create: 2021-06-17 11:52 **/public interface AutomobileBrandInterface {    void setAutomobileBrandName(String name);    Cart getCart();}

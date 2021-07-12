@@ -1,0 +1,1 @@
+package com.example.demo.modules.designPattern.strategymodel;/** * @description: //抽象策略类：大闸蟹加工类 * @author: Mr.monster.liu * @create: 2021-06-16 16:13 **/public interface CrabCooking {    public void CookingMethod();    //做菜方法}

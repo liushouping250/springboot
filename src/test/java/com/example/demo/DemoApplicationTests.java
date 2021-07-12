@@ -1,15 +1,14 @@
 package com.example.demo;
 
 import com.example.demo.domain.TeUsers;
-import com.example.demo.modules.designPattern.sevice.builder.BuilderCart;
-import com.example.demo.modules.designPattern.sevice.builderT.service.CalculationService;
-import com.example.demo.modules.designPattern.sevice.decorate.ConcreteComponent;
-import com.example.demo.modules.designPattern.sevice.decorate.service.ConcreteDecoratorA;
-import com.example.demo.modules.designPattern.sevice.decorate.service.ConcreteDecoratorB;
-import com.example.demo.modules.designPattern.sevice.strategymodel.BraisedCrabs;
-import com.example.demo.modules.designPattern.sevice.strategymodel.CrabCooking;
-import com.example.demo.modules.designPattern.sevice.strategymodel.Kitchen;
-import com.example.demo.modules.designPattern.sevice.strategymodel.SteamedCrabs;
+import com.example.demo.modules.designPattern.builder.service.CalculationService;
+import com.example.demo.modules.designPattern.decorate.ConcreteComponent;
+import com.example.demo.modules.designPattern.decorate.service.ConcreteDecoratorA;
+import com.example.demo.modules.designPattern.decorate.service.ConcreteDecoratorB;
+import com.example.demo.modules.designPattern.strategymodel.BraisedCrabs;
+import com.example.demo.modules.designPattern.strategymodel.CrabCooking;
+import com.example.demo.modules.designPattern.strategymodel.Kitchen;
+import com.example.demo.modules.designPattern.strategymodel.SteamedCrabs;
 import com.example.demo.modules.entrust.service.impl.CalculateThePriceService;
 import com.example.demo.modules.entrust.service.impl.IntermediateMemberEntrustServiceImpl;
 import com.example.demo.modules.rabbitmq.service.SendRabbitRpcMsgService;
@@ -173,10 +172,7 @@ class DemoApplicationTests {
 
     @Test
     void builderCart(){
-        BuilderCart.Builder builder = new BuilderCart.Builder().engine("engine").tyre("tyre").fuselage("fuselage").build();
-        BuilderCart.Builder builderCart = new BuilderCart(builder).name("宝马").build().getBuilder();
 
-        System.out.println(builderCart.toString());
     }
 
     @Test
@@ -250,11 +246,9 @@ class DemoApplicationTests {
 
     @Test
     public void testDecorate(){
-        ConcreteComponent concreteComponent = new ConcreteComponent();
-        ConcreteDecoratorA concreteDecoratorA = new ConcreteDecoratorA();
-        ConcreteDecoratorB concreteDecoratorB = new ConcreteDecoratorB();
-        concreteDecoratorA.setComponent(concreteComponent);
-        concreteDecoratorB.setComponent(concreteDecoratorA);
+        //装饰器设计模式  再不改变现有业务下 进行扩展，减少继承子类的增加
+        ConcreteDecoratorB concreteDecoratorB = new ConcreteDecoratorB(new ConcreteDecoratorA(new ConcreteComponent()));
+
         concreteDecoratorB.eat();
     }
 
