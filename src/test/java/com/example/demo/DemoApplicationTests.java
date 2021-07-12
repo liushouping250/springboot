@@ -5,10 +5,10 @@ import com.example.demo.modules.designPattern.builder.service.CalculationService
 import com.example.demo.modules.designPattern.decorate.ConcreteComponent;
 import com.example.demo.modules.designPattern.decorate.service.ConcreteDecoratorA;
 import com.example.demo.modules.designPattern.decorate.service.ConcreteDecoratorB;
-import com.example.demo.modules.designPattern.strategymodel.BraisedCrabs;
-import com.example.demo.modules.designPattern.strategymodel.CrabCooking;
-import com.example.demo.modules.designPattern.strategymodel.Kitchen;
-import com.example.demo.modules.designPattern.strategymodel.SteamedCrabs;
+import com.example.demo.modules.designPattern.strategy.BraisedCrabs;
+import com.example.demo.modules.designPattern.strategy.CrabCooking;
+import com.example.demo.modules.designPattern.strategy.Kitchen;
+import com.example.demo.modules.designPattern.strategy.SteamedCrabs;
 import com.example.demo.modules.entrust.service.impl.CalculateThePriceService;
 import com.example.demo.modules.entrust.service.impl.IntermediateMemberEntrustServiceImpl;
 import com.example.demo.modules.rabbitmq.service.SendRabbitRpcMsgService;
@@ -90,7 +90,8 @@ class DemoApplicationTests {
     }
 
     @Test
-    void  testBuilder(){
+    void  testStrategy(){
+        //策略设计模式
         CrabCooking steamedCrabs = new SteamedCrabs();
         CrabCooking braisedCrabs = new BraisedCrabs();
         Kitchen kitchen = new Kitchen();
