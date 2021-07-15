@@ -85,7 +85,8 @@ public class DatabaseConfig {
         DruidDataSource datasource = new DruidDataSource();
         datasource.setUrl(url);
         datasource.setUsername(username);
-        datasource.setPassword(password);   //这里可以做加密处理
+        //这里可以做加密处理
+        datasource.setPassword(password);
         datasource.setDriverClassName(driverClassName);
         //configuration
         datasource.setInitialSize(initialSize);
@@ -118,7 +119,6 @@ public class DatabaseConfig {
         // servletRegistrationBean.addInitParameter("allow", "192.168.2.25,127.0.0.1");
         // IP黑名单(共同存在时，deny优先于allow)
         //servletRegistrationBean.addInitParameter("deny", "192.168.1.100");
-        //控制台管理用户
         servletRegistrationBean.addInitParameter("loginUsername", "admin");
         servletRegistrationBean.addInitParameter("loginPassword", "9527");
         //是否能够重置数据 禁用HTML页面上的“Reset All”功能

@@ -1,6 +1,6 @@
 package com.example.demo.modules.user.service.impl;
 
-import com.example.demo.config.security.jwt.JWTConfigurer;
+import com.example.demo.config.security.jwt.JwtConfigurer;
 import com.example.demo.config.security.jwt.TokenProvider;
 import com.example.demo.domain.TeUsers;
 import com.example.demo.mapper.TeUsersMapper;
@@ -9,15 +9,9 @@ import com.example.demo.modules.user.pojo.request.LoginUserDTO;
 import com.example.demo.modules.user.pojo.request.UserRequestDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Enumeration;
 import java.util.Optional;
 
 /**
@@ -76,7 +70,7 @@ public class TeUsersServiceImpl{
         Optional.ofNullable(userByUserAndPassword).orElseThrow(()->new RuntimeException("登录失败"));
 
         String token = tokenProvider.createToken(userByUserAndPassword.getToken(), true);
-        response.setHeader(JWTConfigurer.AUTHORIZATION_HEADER,"Bearer " + token);
+        response.setHeader(JwtConfigurer.AUTHORIZATION_HEADER,"Bearer " + token);
         return userByUserAndPassword;
 
     }

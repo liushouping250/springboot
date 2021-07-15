@@ -1,4 +1,4 @@
-package com.example.demo.modules.designPattern.decorate;
+package com.example.demo.modules.design.decorate;
 
 /**
  * Decorator（装饰者抽象类）
@@ -16,6 +16,7 @@ public abstract class Decorator implements Component {
     }
 
 
+    @Override
     public void eat() {
         component.eat();
     }

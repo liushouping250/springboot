@@ -16,7 +16,7 @@ public class DomainUserDetailsService implements UserDetailsService {
 
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UserDetails loadUserByUsername(final String username) {
 
         throw new RuntimeException("User with userName " + username + " was not found in the database");

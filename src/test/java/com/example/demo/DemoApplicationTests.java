@@ -1,14 +1,15 @@
 package com.example.demo;
 
 import com.example.demo.domain.TeUsers;
-import com.example.demo.modules.designPattern.builder.service.CalculationService;
-import com.example.demo.modules.designPattern.decorate.ConcreteComponent;
-import com.example.demo.modules.designPattern.decorate.service.ConcreteDecoratorA;
-import com.example.demo.modules.designPattern.decorate.service.ConcreteDecoratorB;
-import com.example.demo.modules.designPattern.strategy.BraisedCrabs;
-import com.example.demo.modules.designPattern.strategy.CrabCooking;
-import com.example.demo.modules.designPattern.strategy.Kitchen;
-import com.example.demo.modules.designPattern.strategy.SteamedCrabs;
+import com.example.demo.modules.async.service.AsyncTaskService;
+import com.example.demo.modules.design.builder.service.CalculationService;
+import com.example.demo.modules.design.decorate.ConcreteComponent;
+import com.example.demo.modules.design.decorate.service.ConcreteDecoratorA;
+import com.example.demo.modules.design.decorate.service.ConcreteDecoratorB;
+import com.example.demo.modules.design.strategy.BraisedCrabs;
+import com.example.demo.modules.design.strategy.CrabCooking;
+import com.example.demo.modules.design.strategy.Kitchen;
+import com.example.demo.modules.design.strategy.SteamedCrabs;
 import com.example.demo.modules.entrust.service.impl.CalculateThePriceService;
 import com.example.demo.modules.entrust.service.impl.IntermediateMemberEntrustServiceImpl;
 import com.example.demo.modules.rabbitmq.service.SendRabbitRpcMsgService;
@@ -48,6 +49,9 @@ class DemoApplicationTests {
 
     @Autowired
     private CalculationService calculationService;
+
+    @Autowired
+    private AsyncTaskService asyncTaskService;
 
 
     @Test
@@ -96,10 +100,10 @@ class DemoApplicationTests {
         CrabCooking braisedCrabs = new BraisedCrabs();
         Kitchen kitchen = new Kitchen();
         kitchen.setStrategy(steamedCrabs);
-        kitchen.CookingMethod();
+        kitchen.cookingMethod();
 
         kitchen.setStrategy(braisedCrabs);
-        kitchen.CookingMethod();
+        kitchen.cookingMethod();
     }
 
 
@@ -172,8 +176,10 @@ class DemoApplicationTests {
 
 
     @Test
-    void builderCart(){
-
+    public void threadTest() {
+        for (int i = 0; i < 20; i++) {
+            asyncTaskService.executeAsyncTask(i);
+        }
     }
 
     @Test
@@ -197,7 +203,7 @@ class DemoApplicationTests {
     @Test
     public void entrustTest(){
         IntermediateMemberEntrustServiceImpl intermediateMemberEntrustService = new IntermediateMemberEntrustServiceImpl();
-        calculateThePriceService.CalculateThePriceService(intermediateMemberEntrustService);
+        calculateThePriceService.calculateThePriceService(intermediateMemberEntrustService);
         CalculateThePriceService calculateThePriceService = this.calculateThePriceService.calculateThePrice(20.00);
         log.info(calculateThePriceService.toString());
 
@@ -242,7 +248,7 @@ class DemoApplicationTests {
 
     @Test
     public void builderTTest(){
-        calculationService.index();
+        calculationService.index(1);
     }
 
     @Test

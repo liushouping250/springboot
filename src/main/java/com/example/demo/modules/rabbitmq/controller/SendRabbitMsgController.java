@@ -37,7 +37,6 @@ public class SendRabbitMsgController {
     @ApiOperation(value = "测试交换机发送消息")
     public ResultUtil<Object> topicExchange(@Valid @ApiParam(name = "msg", value = "发送消息", required = true) @RequestParam("msg") String msg){
         sendRabbitMsgService.TestSendExchangeMsg(msg);
-        //sendRabbitMsgService.TestSendExchangeMsg1(msg);
         return ResultUtil.success();
     }
 

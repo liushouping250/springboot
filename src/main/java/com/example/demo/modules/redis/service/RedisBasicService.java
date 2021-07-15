@@ -38,7 +38,7 @@ public class RedisBasicService {
         boolean key = redisUtil.getLock("lock", 100);
         if(key){
             log.info("获取锁成功===="+Thread.currentThread().getName());
-            // redisUtil.releaseLock("lock");
+            redisUtil.releaseLock("lock");
         }else {
             log.info("获取锁失败===="+Thread.currentThread().getName());
         }

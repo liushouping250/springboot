@@ -19,7 +19,9 @@ public class DirectExchangeService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    //推送消息到直连机
+    /**
+     * 推送消息到直连机
+     */
     public void sendRabbitDirectMsg(String msg){
         //将消息携带绑定键值：TestDirectRouting 发送到交换机TestDirectExchange
         log.info("发送rabbit消息===="+msg);

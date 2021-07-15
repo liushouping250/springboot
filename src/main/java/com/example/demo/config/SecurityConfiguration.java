@@ -1,7 +1,7 @@
 package com.example.demo.config;
 
 
-import com.example.demo.config.security.jwt.JWTConfigurer;
+import com.example.demo.config.security.jwt.JwtConfigurer;
 import com.example.demo.config.security.jwt.TokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanInitializationException;
@@ -109,7 +109,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .apply(securityConfigurerAdapter());
     }
 
-    private JWTConfigurer securityConfigurerAdapter() {
-        return new JWTConfigurer(tokenProvider);
+    private JwtConfigurer securityConfigurerAdapter() {
+        return new JwtConfigurer(tokenProvider);
     }
 }

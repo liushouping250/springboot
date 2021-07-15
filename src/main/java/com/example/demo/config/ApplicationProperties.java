@@ -13,14 +13,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class ApplicationProperties {
 
-    private OSS oss;
+    private Oss oss;
 
-    private JWT jwt;
+    private Jwt jwt;
 
-    private RABBIT rabbit;
+    private Rabbit rabbit;
 
     @Data
-    public static class JWT{
+    public static class Jwt{
         /** Request Headers ： Authorization */
         private String header;
 
@@ -37,7 +37,7 @@ public class ApplicationProperties {
     }
 
     @Data
-    public static class OSS{
+    public static class Oss{
 
         private  String name;
 
@@ -45,7 +45,7 @@ public class ApplicationProperties {
     }
 
     @Data
-    public static   class RABBIT{
+    public static   class Rabbit{
 
         private String host;
         private Integer port;

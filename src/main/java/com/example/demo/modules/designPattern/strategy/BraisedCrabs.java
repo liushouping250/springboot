@@ -1,1 +1,0 @@
-package com.example.demo.modules.designPattern.strategy;/** * @description: 具体策略类：红烧大闸蟹 * @author: Mr.monster.liu * @create: 2021-06-16 16:15 **/public class BraisedCrabs implements CrabCooking {    private static final long serialVersionUID = 1L;    public void CookingMethod() {        System.out.println("红烧大闸蟹");    }}

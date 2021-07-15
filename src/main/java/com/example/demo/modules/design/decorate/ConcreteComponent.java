@@ -1,4 +1,4 @@
-package com.example.demo.modules.designPattern.decorate;
+package com.example.demo.modules.design.decorate;
 
 /**
  * ConcreteComponent（具体被装饰对象）

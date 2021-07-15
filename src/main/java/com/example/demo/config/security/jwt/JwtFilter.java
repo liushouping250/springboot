@@ -20,12 +20,12 @@ import java.io.IOException;
  */
 @Slf4j
 @Component
-public class JWTFilter extends GenericFilterBean {
+public class JwtFilter extends GenericFilterBean {
 
     private TokenProvider tokenProvider;
 
 
-    public JWTFilter(TokenProvider tokenProvider) {
+    public JwtFilter(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
     }
 
@@ -54,7 +54,7 @@ public class JWTFilter extends GenericFilterBean {
      * @return
      */
     private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(JWTConfigurer.AUTHORIZATION_HEADER);
+        String bearerToken = request.getHeader(JwtConfigurer.AUTHORIZATION_HEADER);
         log.info("token信息"+bearerToken);
         if (bearerToken != null) {
             String[] split = bearerToken.split("@");

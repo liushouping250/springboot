@@ -1,7 +1,7 @@
-package com.example.demo.modules.designPattern.decorate.service;
+package com.example.demo.modules.design.decorate.service;
 
-import com.example.demo.modules.designPattern.decorate.Component;
-import com.example.demo.modules.designPattern.decorate.Decorator;
+import com.example.demo.modules.design.decorate.Component;
+import com.example.demo.modules.design.decorate.Decorator;
 
 /**
  * ConcreteDecorator（具体装饰者）
@@ -16,6 +16,7 @@ public class ConcreteDecoratorA extends Decorator {
         super(component);
     }
 
+    @Override
     public void eat() {
         super.eat();
         reEat();
