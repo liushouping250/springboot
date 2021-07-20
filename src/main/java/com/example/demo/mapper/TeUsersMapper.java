@@ -26,7 +26,7 @@ public interface TeUsersMapper extends BaseMapper<TeUsers> {
     int insertUser(TeUsers user);
 
     @Update("update te_users set name =#{name},head_portrait =#{headPortrait},nickname =#{nickname},mobile =#{mobile},password =#{password} where user_id=#{userId}")
-    TeUsers updateUser(TeUsers user);
+    int updateUser(TeUsers user);
 
     @Delete(" delete from te_users where user_id = #{userId} ")
     int deleteUser(@Param("userId")Integer userId);
