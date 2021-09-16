@@ -41,13 +41,18 @@ spring:
         username: admin
         password: admin
         virtual-host: /
-        publisher-confirms: true
+        publisher-confirms: true  #如果对异步消息需要回调必须设置为true
         publisher-returns: true
         listener:
             simple:
                 concurrency: 1 #最小消费者
-                max-concurrency: 1 #最大消费者
-                acknowledge-mode: manual
+                max-concurrency: 20 #最大消费者
+                acknowledge-mode: manual # 消费手动确认
+            direct:
+                retry:
+                    enabled: true # 开启消费者进行重试
+                    max-attempts: 5 #最大重试次数
+                    initial-interval: 60 # 重试时间间隔 S
     redis:
         host: 8.136.117.38
         port: 6379

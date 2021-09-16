@@ -1,6 +1,5 @@
 package com.example.demo.rabbitmq.service;
 
-import com.example.demo.rabbitmq.RabbitMqEnum;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -20,8 +19,8 @@ import java.io.IOException;
 public class DirectReceiver {
 
     @RabbitListener(queues = "TestDirectQueue")
-    public void TestDirectQueue(Message testMessage,Channel channel) throws IOException {
+    public void testDirectQueue(Message testMessage,Channel channel) throws IOException {
         System.out.println("DirectReceiver消费者收到消息  : " + testMessage.toString());
-        channel.basicAck(testMessage.getMessageProperties().getDeliveryTag(), true);
+        channel.basicAck(testMessage.getMessageProperties().getDeliveryTag(), false);
     }
 }

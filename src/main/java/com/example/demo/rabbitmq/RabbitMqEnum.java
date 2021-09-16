@@ -7,7 +7,9 @@ package com.example.demo.rabbitmq;
  * @date 2021/5/24 21:52
  */
 public enum RabbitMqEnum {
-
+    /**
+     *  rabbit enum
+     */
     TestDirectQueue("TestDirectQueue","测试直连机消息队列名称"),
     TestDirectExchange("TestDirectExchange","测试直连机消息交换机名称"),
     TestDirectRouting("TestDirectRouting","测试直连机消息路由名称"),
