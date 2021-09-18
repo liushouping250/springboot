@@ -1,6 +1,5 @@
 package com.example.demo.config.security;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,11 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class DomainUserDetailsService implements UserDetailsService {
 
-
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserDetails loadUserByUsername(final String username) {
-
         throw new RuntimeException("User with userName " + username + " was not found in the database");
     }
 }

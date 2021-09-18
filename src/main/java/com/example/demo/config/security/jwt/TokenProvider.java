@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.crypto.SecretKey;
 import java.util.Arrays;
 import java.util.Base64;
@@ -40,7 +41,7 @@ public class TokenProvider {
 
     private long tokenValidityInMillisecondsForRememberMe;
 
-    @Autowired
+    @Resource
     private TeUsersMapper teUsersMapper;
 
 
