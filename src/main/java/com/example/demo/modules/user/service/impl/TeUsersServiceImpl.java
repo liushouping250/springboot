@@ -10,6 +10,8 @@ import com.example.demo.modules.user.pojo.request.UserRequestDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
@@ -42,6 +44,7 @@ public class TeUsersServiceImpl{
         return  teUsersMapper.findUserByUserId(userId);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public TeUsers insertUser(UserRequestDTO userRequestDTO){
         TeUsers user = new TeUsers();
         user.setMobile(userRequestDTO.getMobile());
@@ -53,6 +56,8 @@ public class TeUsersServiceImpl{
         }else {
              teUsersMapper.insertUser(user);
         }
+
+        Integer ss = 4/0;
         return  user;
     }
 
