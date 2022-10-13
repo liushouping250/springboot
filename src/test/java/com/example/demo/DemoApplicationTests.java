@@ -12,7 +12,6 @@ import com.example.demo.modules.design.strategy.Kitchen;
 import com.example.demo.modules.design.strategy.SteamedCrabs;
 import com.example.demo.modules.entrust.service.impl.CalculateThePriceService;
 import com.example.demo.modules.entrust.service.impl.IntermediateMemberEntrustServiceImpl;
-import com.example.demo.modules.rabbitmq.service.SendRabbitRpcMsgService;
 import com.example.demo.modules.redis.service.RedisBasicService;
 import com.example.demo.modules.test.service.CurdJpaService;
 import com.google.common.collect.Maps;
@@ -40,9 +39,6 @@ class DemoApplicationTests {
 
     @Autowired
     private RedisBasicService redisBasicService;
-
-    @Autowired
-    private SendRabbitRpcMsgService sendRabbitRpcMsgService;
 
     @Autowired
     private CalculateThePriceService calculateThePriceService;
@@ -90,7 +86,7 @@ class DemoApplicationTests {
 
     @Test
     void  rpc() throws IOException, InterruptedException {
-        sendRabbitRpcMsgService.index();
+       // sendRabbitRpcMsgService.index();
     }
 
     @Test
