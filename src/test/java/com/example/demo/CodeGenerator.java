@@ -16,7 +16,7 @@ public class CodeGenerator {
     @Test
     public void genCode() {
         // 表前缀
-        String prefix = "te_";
+        String prefix = "";
         // 业务名称
         String moduleName = "modules";
 
@@ -40,10 +40,10 @@ public class CodeGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://8.136.117.38:3306/demo?useUnicode=true&characterEncoding=utf8&useSSL=false");
+        dsc.setUrl("jdbc:mysql://192.168.217.201:3306/demo?useUnicode=true&characterEncoding=utf8&useSSL=false");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("123456");
+        dsc.setPassword("123456..");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
@@ -52,7 +52,7 @@ public class CodeGenerator {
         pc.setModuleName(moduleName); //模块名
         pc.setParent("com.example.demo");
         pc.setController("controller");
-        pc.setEntity("entity");
+        pc.setEntity("domain");
         pc.setService("service");
         pc.setMapper("mapper");
         mpg.setPackageInfo(pc);
@@ -60,7 +60,7 @@ public class CodeGenerator {
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);//underline_to_camel数据库表映射到实体的命名策略
-        strategy.setInclude("te_category_goods");//生成指定的表，不设置则生成数据库所有表
+        strategy.setInclude("article");//生成指定的表，不设置则生成数据库所有表
         //strategy.setTablePrefix(moduleName + "_");//设置表前缀不生成
         strategy.setColumnNaming(NamingStrategy.no_change);//no_change不改变数据库命名
         strategy.setEntityLombokModel(true); // lombok 模型 @Accessors(chain = true) setter链式操作
